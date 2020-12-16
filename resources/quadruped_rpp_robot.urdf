@@ -1,0 +1,444 @@
+<robot name="quadruped_3dof_robot">
+    <link name="basis">
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="20"  ixy="0"  ixz="0" iyy="10" iyz="0" izz="1" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <box size="0.78 0.42 0.05" />
+        </geometry>
+        <material name="black">
+            <color rgba="0 0 0 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 0.5" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.82 0.42 0.05" />
+        </geometry>
+    </collision>
+  </link>
+  <link name="left_front_1">
+  <inertial>
+      <origin xyz="0.0 0.0 -0.05" rpy="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="10" />
+  </inertial>
+  <visual>
+      <origin xyz="0.0 0 -0.05" rpy="0 0 0" />
+      <geometry>
+          <box size="0.02 0.02 0.12" />
+      </geometry>
+      <material name="blueishgreen">
+          <color rgba="0 0.6 0.5 1.0"/>
+      </material>
+  </visual>
+  <collision>
+      <origin xyz="0.0 0 -0.05" rpy="0 0 0"/>
+      <geometry>
+          <box size="0.02 0.02 0.12" />
+      </geometry>
+  </collision>
+    </link>
+    <link name="left_front_2">
+    <inertial>
+        <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="50" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 -0.15" rpy="0 0 0" />
+        <geometry>
+            <box size="0.02 0.02 0.32" />
+        </geometry>
+        <material name="reddishpurple">
+            <color rgba="0.8 0.6 0.7 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.32" />
+        </geometry>
+    </collision>
+    </link>
+    <link name="left_front_3">
+    <inertial>
+        <origin xyz="0 0 -0.14" rpy="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="50" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 -0.14" rpy="0 0 0" />
+        <geometry>
+            <box size="0.02 0.02 0.30" />
+        </geometry>
+        <material name="skyblue">
+            <color rgba="0.35 0.7 0.9 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.14" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.30" />
+        </geometry>
+    </collision>
+    <visual>
+        <origin xyz="0 0 -0.29" rpy="0 0 0" />
+        <geometry>
+            <sphere radius="0.01" />
+        </geometry>
+        <material name="skyblue">
+            <color rgba="0.35 0.7 0.9 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.29" rpy="0 0 0"/>
+        <geometry>
+            <sphere radius="0.01" />
+        </geometry>
+    </collision>
+    </link>
+    <joint name="left_front_hip_roll" type="continuous">
+        <origin xyz="0.4 0.2 0.0" rpy="0 0 0"/>
+        <parent link="basis" />
+        <child link="left_front_1" />
+        <axis xyz="1 0 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="15.0"/>
+    </joint>
+    <joint name="left_front_hip_pitch" type="continuous">
+        <origin xyz="0.0 0.02 -0.1" rpy="0 0 0"/>
+        <parent link="left_front_1" />
+        <child link="left_front_2" />
+        <axis xyz="0 1 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="10.0"/>
+    </joint>
+    <joint name="left_front_knee" type="continuous">
+        <origin xyz="0 -0.02 -0.3" rpy="0 0 0"/>
+        <parent link="left_front_2" />
+        <child link="left_front_3" />
+        <axis xyz="0 1 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="10.0"/>
+    </joint>
+    <link name="right_front_1">
+    <inertial>
+        <origin xyz="0.0 0.0 -0.05" rpy="0 0 0"/>
+        <mass value="0.2"/>
+        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="10" />
+    </inertial>
+    <visual>
+        <origin xyz="0.0 0 -0.05" rpy="0 0 0" />
+        <geometry>
+            <box size="0.02 0.02 0.12" />
+        </geometry>
+        <material name="blueishgreen">
+            <color rgba="0 0.6 0.5 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0 -0.05" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.12" />
+        </geometry>
+    </collision>
+    </link>
+    <link name="right_front_2">
+    <inertial>
+        <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="50" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 -0.15" rpy="0 0 0" />
+        <geometry>
+            <box size="0.02 0.02 0.32" />
+        </geometry>
+        <material name="reddishpurple">
+            <color rgba="0.8 0.6 0.7 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.32" />
+        </geometry>
+    </collision>
+    </link>
+    <link name="right_front_3">
+    <inertial>
+        <origin xyz="0 0 -0.14" rpy="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="50" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 -0.14" rpy="0 0 0" />
+        <geometry>
+            <box size="0.02 0.02 0.3" />
+        </geometry>
+        <material name="skyblue">
+            <color rgba="0.35 0.7 0.9 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.14" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.3" />
+        </geometry>
+    </collision>
+    <visual>
+        <origin xyz="0 0 -0.29" rpy="0 0 0" />
+        <geometry>
+            <sphere radius="0.01" />
+        </geometry>
+        <material name="skyblue">
+            <color rgba="0.35 0.7 0.9 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.29" rpy="0 0 0"/>
+        <geometry>
+            <sphere radius="0.01" />
+        </geometry>
+    </collision>
+    </link>
+    <joint name="right_front_hip_roll" type="continuous">
+        <origin xyz="0.4 -0.2 0.0" rpy="0 0 0"/>
+        <parent link="basis" />
+        <child link="right_front_1" />
+        <axis xyz="1 0 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="15.0"/>
+    </joint>
+    <joint name="right_front_hip_pitch" type="continuous">
+        <origin xyz="0.0 -0.02 -0.1" rpy="0 0 0"/>
+        <parent link="right_front_1" />
+        <child link="right_front_2" />
+        <axis xyz="0 1 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="10.0"/>
+    </joint>
+    <joint name="right_front_knee" type="continuous">
+        <origin xyz="0 0.02 -0.3" rpy="0 0 0"/>
+        <parent link="right_front_2" />
+        <child link="right_front_3" />
+        <axis xyz="0 1 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="10.0"/>
+    </joint>
+    <link name="left_back_1">
+    <inertial>
+        <origin xyz="0.0 0.0 -0.05" rpy="0 0 0"/>
+        <mass value="0.2"/>
+        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="10" />
+    </inertial>
+    <visual>
+        <origin xyz="0.0 0 -0.05" rpy="0 0 0" />
+        <geometry>
+            <box size="0.02 0.02 0.12" />
+        </geometry>
+        <material name="blueishgreen">
+            <color rgba="0 0.6 0.5 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0 -0.05" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.12" />
+        </geometry>
+    </collision>
+    </link>
+    <link name="left_back_2">
+    <inertial>
+        <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="50" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 -0.15" rpy="0 0 0" />
+        <geometry>
+            <box size="0.02 0.02 0.32" />
+        </geometry>
+        <material name="reddishpurple">
+            <color rgba="0.8 0.6 0.7 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.32" />
+        </geometry>
+    </collision>
+    </link>
+    <link name="left_back_3">
+    <inertial>
+        <origin xyz="0 0 -0.14" rpy="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="50" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 -0.14" rpy="0 0 0" />
+        <geometry>
+            <box size="0.02 0.02 0.30" />
+        </geometry>
+        <material name="skyblue">
+            <color rgba="0.35 0.7 0.9 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.14" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.30" />
+        </geometry>
+    </collision>
+    <visual>
+        <origin xyz="0 0 -0.29" rpy="0 0 0" />
+        <geometry>
+            <sphere radius="0.01" />
+        </geometry>
+        <material name="skyblue">
+            <color rgba="0.35 0.7 0.9 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.29" rpy="0 0 0"/>
+        <geometry>
+            <sphere radius="0.01" />
+        </geometry>
+    </collision>
+    </link>
+    <joint name="left_back_hip_roll" type="continuous">
+        <origin xyz="-0.4 0.2 0.0" rpy="0 0 0"/>
+        <parent link="basis" />
+        <child link="left_back_1" />
+        <axis xyz="1 0 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="15.0"/>
+    </joint>
+    <joint name="left_back_hip_pitch" type="continuous">
+        <origin xyz="0.0 0.02 -0.1" rpy="0 0 0"/>
+        <parent link="left_back_1" />
+        <child link="left_back_2" />
+        <axis xyz="0 1 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="10.0"/>
+    </joint>
+    <joint name="left_back_knee" type="continuous">
+        <origin xyz="0 -0.02 -0.3" rpy="0 0 0"/>
+        <parent link="left_back_2" />
+        <child link="left_back_3" />
+        <axis xyz="0 1 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="10.0"/>
+    </joint>
+    <link name="right_back_1">
+    <inertial>
+        <origin xyz="0.0 0.0 -0.05" rpy="0 0 0"/>
+        <mass value="0.2"/>
+        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="10" />
+    </inertial>
+    <visual>
+        <origin xyz="0.0 0 -0.05" rpy="0 0 0" />
+        <geometry>
+            <box size="0.02 0.02 0.12" />
+        </geometry>
+        <material name="blueishgreen">
+            <color rgba="0 0.6 0.5 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0 -0.05" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.12" />
+        </geometry>
+    </collision>
+    </link>
+    <link name="right_back_2">
+    <inertial>
+        <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="50" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 -0.15" rpy="0 0 0" />
+        <geometry>
+            <box size="0.02 0.02 0.32" />
+        </geometry>
+        <material name="reddishpurple">
+            <color rgba="0.8 0.6 0.7 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.32" />
+        </geometry>
+    </collision>
+    </link>
+    <link name="right_back_3">
+    <inertial>
+        <origin xyz="0 0 -0.14" rpy="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="1"  ixy="0"  ixz="0" iyy="1" iyz="0" izz="50" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 -0.14" rpy="0 0 0" />
+        <geometry>
+            <box size="0.02 0.02 0.3" />
+        </geometry>
+        <material name="skyblue">
+            <color rgba="0.35 0.7 0.9 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.14" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.3" />
+        </geometry>
+    </collision>
+    <visual>
+        <origin xyz="0 0 -0.29" rpy="0 0 0" />
+        <geometry>
+            <sphere radius="0.01" />
+        </geometry>
+        <material name="skyblue">
+            <color rgba="0.35 0.7 0.9 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 -0.29" rpy="0 0 0"/>
+        <geometry>
+            <sphere radius="0.01" />
+        </geometry>
+    </collision>
+    </link>
+    <joint name="right_back_hip_roll" type="continuous">
+        <origin xyz="-0.4 -0.2 0.0" rpy="0 0 0"/>
+        <parent link="basis" />
+        <child link="right_back_1" />
+        <axis xyz="1 0 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="15.0"/>
+    </joint>
+    <joint name="right_back_hip_pitch" type="continuous">
+        <origin xyz="0.0 -0.02 -0.1" rpy="0 0 0"/>
+        <parent link="right_back_1" />
+        <child link="right_back_2" />
+        <axis xyz="0 1 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="10.0"/>
+    </joint>
+    <joint name="right_back_knee" type="continuous">
+        <origin xyz="0 0.02 -0.3" rpy="0 0 0"/>
+        <parent link="right_back_2" />
+        <child link="right_back_3" />
+        <axis xyz="0 1 0" />
+        <dynamics damping="0.02" friction="0.01" />
+        <limit effort="10.0"/>
+    </joint>
+</robot>

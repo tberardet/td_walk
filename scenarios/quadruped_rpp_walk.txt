@@ -1,0 +1,4 @@
+--robot
+quadruped_rpp
+--trajectory
+robot_trajectories/quadruped_rpp_walk.json

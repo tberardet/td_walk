@@ -596,7 +596,8 @@ class WalkEngine(RobotTrajectory):
 
     def getParameters(self):
         return np.array([self.step_length] + self.rest_pos.tolist() +
-                        [self.step_height, self.flying_ratio, self.period] +  self.leg_phase_offsets.tolist())
+                        [self.step_height, self.flying_ratio, self.period] +
+                        self.leg_phase_offsets.tolist())
 
     def setParameters(self, values):
         self.step_length = values[0]
@@ -608,19 +609,33 @@ class WalkEngine(RobotTrajectory):
         self.updateInternalValues()
 
     def getParametersNames(self):
+        legOffSet = []
+        for i in range(len(self.leg_phase_offsets)): 
+            legOffSet.append("leg_phase_offsets" + str(i))
         return ["step_length", "rest_pos_x", "rest_pos_y", "rest_pos_z", "step_height", 
-                "flying_ratio", "period", "leg_phase_offsets"]
+                "flying_ratio", "period"] + legOffSet
 
     def getParametersLimits(self):
-        return np.array([
+        limitOffset = [0,1]
+        ans = np.array([
             [-0.2,0.2],
             [-0.2,0.2],
             [-0.2,0.2],
             [-0.7,-0.4],
             [0,0.2],
             [0,0.5],
-            [1,10] #period
-        ])
+            [1,10], #period
+            limitOffset,
+            limitOffset,
+            limitOffset,
+            limitOffset,
+            limitOffset,
+            limitOffset
+            ])
+        """for i in range (len(self.leg_phase_offsets)):
+            np.append(ans,limitOffset)"""
+
+        return ans
 
 
     def setDicParameters(self, parameters):

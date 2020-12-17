@@ -595,24 +595,25 @@ class WalkEngine(RobotTrajectory):
         self.setDicParameters(parameters)
 
     def getParameters(self):
-        return np.array([self.step_length] + self.rest_pos.tolist() +
+        return np.array([self.step_length, self.step_lateral] + self.rest_pos.tolist() +
                         [self.step_height, self.flying_ratio, self.period] +
                         self.leg_phase_offsets.tolist())
 
     def setParameters(self, values):
         self.step_length = values[0]
-        self.rest_pos = values[1:4]
-        self.step_height = values[4]
-        self.flying_ratio = values[5]
-        self.period = values[6]
-        self.leg_phase_offsets = values[7:]
+        self.step_lateral = values[1]
+        self.rest_pos = values[2:5]
+        self.step_height = values[5]
+        self.flying_ratio = values[6]
+        self.period = values[7]
+        self.leg_phase_offsets = values[8:]
         self.updateInternalValues()
 
     def getParametersNames(self):
         legOffSet = []
         for i in range(len(self.leg_phase_offsets)): 
             legOffSet.append("leg_phase_offsets" + str(i))
-        return ["step_length", "rest_pos_x", "rest_pos_y", "rest_pos_z", "step_height", 
+        return ["step_length","step_lateral", "rest_pos_x", "rest_pos_y", "rest_pos_z", "step_height", 
                 "flying_ratio", "period"] + legOffSet
 
     def getParametersLimits(self):
@@ -621,10 +622,11 @@ class WalkEngine(RobotTrajectory):
             [-0.2,0.2],
             [-0.2,0.2],
             [-0.2,0.2],
+            [-0.2,0.2],
             [-0.7,-0.4],
             [0,0.2],
             [0,0.5],
-            [1,10], #period
+            [0.1,10] #period
             ]
         for i in range (len(self.leg_phase_offsets)):
             ans.append(limitOffset)
@@ -632,6 +634,7 @@ class WalkEngine(RobotTrajectory):
 
 
     def setDicParameters(self, parameters):
+        self.step_lateral = parameters["step_lateral"] if "step_lateral" in parameters else 0 
         self.step_length = parameters["step_length"]
         self.period = parameters["period"]
         self.rest_pos = np.array(parameters["rest_pos"])
@@ -645,6 +648,12 @@ class WalkEngine(RobotTrajectory):
             [0,-self.step_length/2],
             [self.flying_ratio,self.step_length/2],
             [1.0,-self.step_length/2]]))
+
+        self.y_spline = LinearSpline(np.array([
+            [0,-self.step_lateral/2],
+            [self.flying_ratio,self.step_lateral/2],
+            [1.0,-self.step_lateral/2]]))
+
         self.z_spline = LinearSpline(np.array([
             [0,0],
             [self.flying_ratio/2,self.step_height],
@@ -670,6 +679,8 @@ class WalkEngine(RobotTrajectory):
             val += self.z_spline.getVal(leg_phase,degree)
         if dim == 0:
             val += self.x_spline.getVal(leg_phase,degree)
+        if dim == 1:
+            val += self.y_spline.getVal(leg_phase,degree)
         return val
 
     def getOpVal(self, t, dim, degree):

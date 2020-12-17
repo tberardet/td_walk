@@ -617,7 +617,7 @@ class WalkEngine(RobotTrajectory):
 
     def getParametersLimits(self):
         limitOffset = [0,1]
-        ans = np.array([
+        ans = [
             [-0.2,0.2],
             [-0.2,0.2],
             [-0.2,0.2],
@@ -625,17 +625,10 @@ class WalkEngine(RobotTrajectory):
             [0,0.2],
             [0,0.5],
             [1,10], #period
-            limitOffset,
-            limitOffset,
-            limitOffset,
-            limitOffset,
-            limitOffset,
-            limitOffset
-            ])
-        """for i in range (len(self.leg_phase_offsets)):
-            np.append(ans,limitOffset)"""
-
-        return ans
+            ]
+        for i in range (len(self.leg_phase_offsets)):
+            ans.append(limitOffset)
+        return np.array(ans)
 
 
     def setDicParameters(self, parameters):

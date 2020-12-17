@@ -596,17 +596,20 @@ class WalkEngine(RobotTrajectory):
 
     def getParameters(self):
         return np.array([self.step_length] + self.rest_pos.tolist() +
-                        [self.step_height, self.flying_ratio])
+                        [self.step_height, self.flying_ratio, self.period] +  self.leg_phase_offsets.tolist())
 
     def setParameters(self, values):
         self.step_length = values[0]
         self.rest_pos = values[1:4]
         self.step_height = values[4]
         self.flying_ratio = values[5]
+        self.period = values[6]
+        self.leg_phase_offsets = values[7:]
         self.updateInternalValues()
 
     def getParametersNames(self):
-        return ["step_length", "rest_pos_x", "rest_pos_y", "rest_pos_z", "step_height", "flying_ratio"]
+        return ["step_length", "rest_pos_x", "rest_pos_y", "rest_pos_z", "step_height", 
+                "flying_ratio", "period", "leg_phase_offsets"]
 
     def getParametersLimits(self):
         return np.array([
@@ -615,7 +618,8 @@ class WalkEngine(RobotTrajectory):
             [-0.2,0.2],
             [-0.7,-0.4],
             [0,0.2],
-            [0,0.5]
+            [0,0.5],
+            [1,10] #period
         ])
 
 

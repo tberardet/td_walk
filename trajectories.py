@@ -638,7 +638,7 @@ class WalkEngine(RobotTrajectory):
     def setDicParameters(self, parameters):
         self.step_lateral = parameters["step_lateral"] if "step_lateral" in parameters else 0 
         self.step_length = parameters["step_length"]
-        self.step_theta = parameters["step_theta"]
+        self.step_theta = parameters["step_theta"] if "step_theta" in parameters else 0 
         self.period = parameters["period"]
         self.rest_pos = np.array(parameters["rest_pos"])
         self.flying_ratio = parameters["flying_ratio"]

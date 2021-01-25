@@ -595,30 +595,32 @@ class WalkEngine(RobotTrajectory):
         self.setDicParameters(parameters)
 
     def getParameters(self):
-        return np.array([self.step_length, self.step_lateral] + self.rest_pos.tolist() +
+        return np.array([self.step_length, self.step_lateral, self.step_theta] + self.rest_pos.tolist() +
                         [self.step_height, self.flying_ratio, self.period] +
                         self.leg_phase_offsets.tolist())
 
     def setParameters(self, values):
         self.step_length = values[0]
         self.step_lateral = values[1]
-        self.rest_pos = values[2:5]
-        self.step_height = values[5]
-        self.flying_ratio = values[6]
-        self.period = values[7]
-        self.leg_phase_offsets = values[8:]
+        self.step_theta = values[2]
+        self.rest_pos = values[3:6]
+        self.step_height = values[6]
+        self.flying_ratio = values[7]
+        self.period = values[8]
+        self.leg_phase_offsets = values[9:]
         self.updateInternalValues()
 
     def getParametersNames(self):
         legOffSet = []
         for i in range(len(self.leg_phase_offsets)): 
             legOffSet.append("leg_phase_offsets" + str(i))
-        return ["step_length","step_lateral", "rest_pos_x", "rest_pos_y", "rest_pos_z", "step_height", 
+        return ["step_length","step_lateral", "step_theta", "rest_pos_x", "rest_pos_y", "rest_pos_z", "step_height", 
                 "flying_ratio", "period"] + legOffSet
 
     def getParametersLimits(self):
         limitOffset = [0,1]
         ans = [
+            [-0.2,0.2],
             [-0.2,0.2],
             [-0.2,0.2],
             [-0.2,0.2],
@@ -636,6 +638,7 @@ class WalkEngine(RobotTrajectory):
     def setDicParameters(self, parameters):
         self.step_lateral = parameters["step_lateral"] if "step_lateral" in parameters else 0 
         self.step_length = parameters["step_length"]
+        self.step_theta = parameters["step_theta"]
         self.period = parameters["period"]
         self.rest_pos = np.array(parameters["rest_pos"])
         self.flying_ratio = parameters["flying_ratio"]

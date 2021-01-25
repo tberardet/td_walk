@@ -7,6 +7,7 @@
         "flying_ratio" : 0.25,
         "step_height" : 0.0,
         "step_length" : 0.0,
+        "step_theta" : 0.0,
         "leg_phase_offsets" : [0.5, 0.0, 0.0,0.5,0.5,0.0]
     }
 }

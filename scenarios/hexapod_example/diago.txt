@@ -1,0 +1,4 @@
+--robot
+hexapod_rpp
+--trajectory
+robot_trajectories/hexapod_traj/diago.json
